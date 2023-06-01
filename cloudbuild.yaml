@@ -4,5 +4,6 @@ steps:
   id: Sync the website content
   args: ["-m", "rsync", "-r", "-c", "-d", ".", 'gs://www.devpatel.cloud']
 - name: 'gcr.io/cloud-builders/gcloud'
-  id: Invalidate the content CDN
-  args: ['compute', 'url-maps', 'invalidate-cdn-cache', 'personal-website-lb', '--host', 'www.devpatel.cloud', '--path', '/', '--async']
+  id: Invalidate CDN Cache
+  args: ['compute', 'url-maps', 'invalidate-cdn-cache', 'personal-website-lb', '--path', '/*', '--async']
+
