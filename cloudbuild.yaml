@@ -3,6 +3,6 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
   id: Sync the website content
   args: ['gsutil', '-m', 'rsync', '-d', '-r', 'website/', 'gs://www.devpatel.cloud']
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk@sha256:eb93c94db1a56b5bd023ee0612de7d98a2c04666e51a2ba035ddca6d7f43bc2e'
   id: Invalidate the content CDN
   args: ['gcloud', 'compute', 'url-maps', 'invalidate-cdn-cache', 'personal-website-lb', '--path', '/*', '--project', '$PROJECT_ID']
