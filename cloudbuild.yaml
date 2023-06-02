@@ -4,15 +4,24 @@ steps:
   id: Sync the website content
   args: ["-m", "rsync", "-r", "-c", "-d", ".", 'gs://www.devpatel.cloud']
 - name: 'gcr.io/cloud-builders/gsutil'
-  entrypoint: 'bash'
   args:
+  - '-m'
+  - 'rsync'
+  - '-r'
+  - '-d'
+  - '-J'
+  - '-R'
   - '-c'
-  - |
-    gsutil update -m -R -a -h "Cache-Control: no-cache" -h "Pragma: no-cache" gs://www.devpatel.cloud/**
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - |
-    gcloud compute url-maps invalidate-cdn-cache personal-website-lb
+  - '-e'
+  - '-x'
+  - '-D'
+  - '-a'
+  - 'gs://www.devpatel.cloud'
+  - 'gs://www.devpatel.cloud'
 
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'compute'
+  - 'url-maps'
+  - 'invalidate-cdn-cache'
+  - 'personal-website-lb'
