@@ -3,7 +3,16 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   id: Sync the website content
   args: ["-m", "rsync", "-r", "-c", "-d", ".", 'gs://www.devpatel.cloud']
+- name: 'gcr.io/cloud-builders/gsutil'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    gsutil update -m -R -a -h "Cache-Control: no-cache" -h "Pragma: no-cache" gs://www.devpatel.cloud/**
 - name: 'gcr.io/cloud-builders/gcloud'
-  id: Invalidate CDN Cache
-  args: ['compute', 'url-maps', 'invalidate-cdn-cache', 'personal-website-lb', '--path', '/*', '--async']
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    gcloud compute url-maps invalidate-cdn-cache personal-website-lb
 
