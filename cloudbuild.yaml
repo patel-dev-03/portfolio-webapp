@@ -3,22 +3,6 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   id: Sync the website content
   args: ["-m", "rsync", "-r", "-c", "-d", ".", 'gs://www.devpatel.cloud']
-- name: 'gcr.io/cloud-builders/gsutil'
-  args:
-  - '-m'
-  - 'rsync'
-  - '-r'
-  - '-d'
-  - '-J'
-  - '-R'
-  - '-c'
-  - '-e'
-  - '-x'
-  - '-D'
-  - '-a'
-  - 'gs://www.devpatel.cloud'
-  - 'gs://www.devpatel.cloud'
-
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - 'compute'
