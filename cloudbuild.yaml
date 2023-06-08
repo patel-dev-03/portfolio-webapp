@@ -3,6 +3,5 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   id: Sync the website content
   args: ["-m", "rsync", "-r", "-c", "-d", ".", 'gs://www.devpatel.cloud']
-  args: ['-m', 'cp', '-R', '-z', 'html,css,js', '-h', 'Cache-Control: no-cache', 'gs://www.devpatel.cloud/*', 'gs://www.devpatel.cloud/']
  - name: 'gcr.io/cloud-builders/gcloud'
   args: ['compute', 'backend-services', 'update', 'personal-website-lb', '--global', '--cache-key-include-host', 'include_host', '--cache-key-include-host', 'www.devpate.cloud', 'invalidate-cdn-cache']
